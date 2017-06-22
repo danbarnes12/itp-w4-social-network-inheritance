@@ -1,33 +1,34 @@
 from datetime import datetime
 
+class Post(object):
+    def __init__(self, text, timestamp=None):
+         self.text = text
+         self.timestamp = timestamp
+         self.user = None
 
-# class Post(object):
-#     def __init__(self, text, timestamp=None):
-#         pass
-#
-#     def set_user(self, user):
-#         pass
+    def set_user(self, user):
+         self.user = user
 
+class TextPost(Post):
+    def __init__(self, text, timestamp=None):
+        super(TextPost,self).__init__(text,timestamp)
 
-# class TextPost(...):  # Inherit properly
-#     def __init__(self, text, timestamp=None):
-#         pass
-#
-#     def __str__(self):
-#         pass
+    def __str__(self):
+        return '@{} {}: "{}"\n\t{}'.format(self.user.first_name,self.user.last_name,self.text,self.timestamp.strftime('%A, %b %d, %Y'))
 
+class PicturePost(Post):  # Inherit properly
+    def __init__(self, text, image_url, timestamp=None):
+        super(PicturePost,self).__init__(text,timestamp)
+        self.imagine_url = image_url
 
-# class PicturePost(...):  # Inherit properly
-#     def __init__(self, text, image_url, timestamp=None):
-#         pass
-#
-#     def __str__(self):
-#         pass
+    def __str__(self):
+        return '@{} {}: "{}"\n\t{}\n\t{}'.format(self.user.first_name,self.user.last_name,self.text,self.imagine_url,self.timestamp.strftime('%A, %b %d, %Y'))
 
+class CheckInPost(Post):
+    def __init__(self, text, latitude, longitude, timestamp=None):
+        super(CheckInPost,self).__init__(text,timestamp)
+        self.latitude = latitude
+        self.longitude = longitude
 
-# class CheckInPost(...):  # Inherit properly
-#     def __init__(self, text, latitude, longitude, timestamp=None):
-#         pass
-#
-#     def __str__(self):
-#         pass
+    def __str__(self):
+         return '@{} Checked In: "{}"\n\t{}, {}\n\t{}'.format(self.user.first_name,self.text,self.latitude,self.longitude,self.timestamp.strftime('%A, %b %d, %Y'))
